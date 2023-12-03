@@ -1,0 +1,766 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Quiz</title>  
+        <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5694/5694744.png" />                                                                                                                                                                                                                                                                                                                               
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/d96bb958-4e6c-4ce0-9447-fbe226fbbecf/df3ce2g-46bc6c43-3baf-4388-b84a-6c49031e2f5b.jpg');
+                background-size: 100% 100%;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+            }
+
+            .topnav {
+                display: flex;
+                padding-inline: 40% -40%;
+                height: 64px;
+                width: 100vw;
+                overflow: hidden;
+                background-color: #000000aa;
+                
+
+            }
+
+            .topnav a {
+                color: #ffffff;
+                text-align: center;
+                font-size: 22px;
+                text-decoration-line: none;
+                font-weight: 900;
+                vertical-align: middle;
+                text-anchor: start;
+                padding: 17px;
+                margin-left: 48px;
+                text-align: center;
+            }
+
+            .topnav a:hover {
+                background-color: #ffffffbb;
+                color: rgb(103, 0, 154);
+            }
+
+            .topnav a.active {
+                background-color: #aa00ff55;
+                color: white;
+            }
+
+            .mainBox {
+                align-content: auto;
+                display: flex;
+                flex-direction: column;
+                margin-inline: 64px 64px;
+                margin-block: 64px 64px;
+                height: 70vh;
+                border-color: rgb(237, 86, 207);
+                border-radius: 16px;
+                border-style:double;
+                border-width: 8px;
+                padding: 10px;
+                background-color: rgba(26, 0, 45, 0.6);
+                justify-content: center;
+                color: aliceblue;  
+                font-size: 34px;
+                font-weight: bolder;
+                text-transform: uppercase;
+                align-items: center;
+                box-shadow: 0 0 64px #e3c3ffaa, 0 0 32px #aa00ff55;
+            }
+
+            .intro {
+                text-align: match-parent;
+                display: flex;    
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 34px;
+            }
+
+            .textbox {
+                height: 44px;
+                width: 244px;
+                font-size: 28px;
+                border-radius: 8px;
+                border-color: #e100ff;
+                background-color: #330042a1;
+                padding: 12px;
+                text-align: center;
+                align-self: center;
+                margin: 48px;
+                color: azure;
+                box-shadow: 0 0 80px #ffffffaa, 0 0 32px #aa00ff55;
+            }
+
+            .dropDownBox {
+                width: 244px;
+                font-size: 28px;
+                border-radius: 8px;
+                border-color: #e100ff;
+                background-color: #330042a1;
+                padding: 12px;
+                text-align: center;
+                align-self: center;
+                margin: 48px;
+                color: azure;
+                box-shadow: 0 0 80px #ffffffaa, 0 0 32px #aa00ff55;
+            }
+
+            .box {
+                text-align: center;
+                display: flex;    
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 28px;
+                text-wrap: wrap;
+                width: 50vw;
+                height: 60vh; 
+            }
+
+            .choiceCircle {
+                color: blue;
+                opacity: 0.25;
+                background-color:#e100ff;
+                accent-color: aqua;
+                height: 6vh;
+                width: 3vw;
+                pointer-events: auto;
+            }
+
+            .choiceCircle:checked {
+                opacity: 1;
+                background-color: #e100ff;
+                box-shadow: 0 0 80px #ffffff, 0 0 32px #00ffdd;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .start:hover {
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+
+            .endButton {
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+
+            .endButton:hover {
+                -webkit-transform: scaleX(1);
+                transform: scaleX(1);
+            }
+
+            .left {
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+
+            .multipleChoiceAnswers {
+                justify-content: space-evenly;
+                justify-items: center;
+                align-content: space-evenly;
+                align-items: center; 
+                display: grid;
+                grid-template-columns: auto auto;
+                grid-template-rows: auto auto;
+                width: 100%;
+                height: 70%;
+            }
+
+
+            .multipleChoiceAnswer {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                border-radius: 16px;
+                border-color: #e100ff;
+                border-width: 4px;
+                border-style: outset;
+                height: 8vh;
+                width: 20vw;
+                padding: 16px;
+                background-color: #330042a1;
+                pointer-events: none;
+            }
+
+            .multipleChoiceAnswer:hover {
+                border-color: rgb(225, 0, 255, 08);
+                background-color: #23002da1;
+            }
+
+            #choiceCircle:checked ~ .multipleChoiceAnswer {   
+                background-color: aqua;
+            }
+            
+            .correct {
+                transition: 2s;
+                background-color: hsla(112, 100%, 13%, 0.631);
+                box-shadow: 0 0 80px #00ff00, 0 0 32px hsl(120, 100%, 13%);
+            }
+
+            .incorrect {
+                transition: 2s;
+                background-color: hsla(0, 100%, 13%, 0.631);
+                box-shadow: 0 0 80px #ff0000, 0 0 32px hsl(0, 100%, 13%);
+            }
+
+            .noPointer {
+                pointer-events: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="moi.html">INTRODUCTION</a>
+            <a href="horaire.html">HORAIRE</a>
+            <a class="active" href="QuizNavidLangroudi.html">QUIZ</a>
+        </div>
+        <div class="mainBox" id="mainBox">
+            <img id="change1" class="left hidden" onclick="lastPage(questions)" style="height: 100%; aspect-ratio: 0.48/1" src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AOo0EEUUyS9wCIMLegoCmBCPRrxz957aGi0%2BcNu2LMwqHEyvEjja2WigM2IBBDtJygKWPkfoy30CFbxJ18XgTtUKN84OkNUMkG6tKuqWeb3YXDex%2F0rz8B98dFixqizGgWhw%2B9eLsSinju73xbDTdo5tEbmqUg9WBeQvHABgf2kmq0aJAImXuufMMbrLuoAnkqoRbSUDCj2DDFAFzM6REeCYaGWF3rXqAyYAHjsyjJ7pW7UHreJPeyE1lzAWergRJyXi7QRbbZ3w7Jgtz9kmwC7%2BKF9V3eJWxaY4KlAuueuSn9uiRLcLNkPqVBesDTWdB5VMy4eVVhVYuG9Y5UZFAq9Fq0Xoc5%2BOOU5Lm6KKt1%2FTPIQhf55Jw2vi22KsIMi3xVldc98JXllyW%2BE2%2FuLc2ProhW5tAe9t5gBc8%2BdVmuRC6FKnx6ZyoZlZK9rFvnNfQNf1Bbhu6xkdciOr5UPEuNGfleGUaFIqjSV%2BHNnOJxDb4cQdAcSWai52hLj54G0qYE7GPtcYIjR8i0s3S2vn2vSVie63cXdw0AcVKOs55%2BRWoE%2BvXGYvQ0gF2lFXAESweq4birfj&sz=w512">
+            <form name="myForm">
+                <div id='text1' class="box hidden">
+                    <label id="textQuestion1" for="textAnswer1"></label>
+                    <input class="textbox" id="textAnswer1" type="text" name="" placeholder="" value="">
+                </div>
+                <div id='text2' class="box hidden">
+                    <label id="textQuestion2" for="textAnswer2"></label>
+                    <input class="textbox" id="textAnswer2" type="text" name="" placeholder="" value="">
+                </div>
+                <div id='date2' class="box hidden">
+                    <label id="dateQuestion" for="dateAnswer"></label>
+                    <input class="textbox" id="dateAnswer" type="date" name="" value="">
+                </div>
+                <div id='dropDown1' class="box hidden">
+                    <label id="dropDownQuestion1" for="dropDownSelect1"></label>
+                    <select class="dropDownBox" id="dropDownSelect1" name="">
+                        <option id="1value0" class="dropDownOption" value="" selected disabled hidden>Choisissez une réponse</option>
+                        <option id="1value1" class="dropDownOption" value=""></option>
+                        <option id="1value2" class="dropDownOption" value=""></option>
+                        <option id="1value3" class="dropDownOption" value=""></option>
+                        <option id="1value4" class="dropDownOption" value=""></option>
+                    </select>
+                </div>
+                <div id='dropDown2' class="box hidden">
+                    <label id="dropDownQuestion2" for="dropDownSelect2"></label>
+                    <select class="dropDownBox" id="dropDownSelect2" name="">
+                        <option id="2value0" class="dropDownOption" value="" selected disabled hidden>Choisissez une réponse</option>
+                        <option id="2value1" class="dropDownOption" value=""></option>
+                        <option id="2value2" class="dropDownOption" value=""></option>
+                        <option id="2value3" class="dropDownOption" value=""></option>
+                        <option id="2value4" class="dropDownOption" value=""></option>
+                    </select>
+                </div>
+                <div id="multipleChoice1" class="box hidden">
+                    <p id="multipleChoiceQuestion1"></p>
+                    <div class="multipleChoiceAnswers">
+                        <div class="multipleChoiceAnswer" id="id1OptionMultipleChoiceAnswer1">
+                            <input class="choiceCircle" id="id1Input1" type="radio" name="" value="">
+                            <label onclick=";" class="answerWord" id="id1Option1" for=""></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id2OptionMultipleChoiceAnswer1">
+                            <input class="choiceCircle" id="id2Input1" type="radio" name="" value="">
+                            <label class="answerWord" id="id2Option1" for=""></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id3OptionMultipleChoiceAnswer1">
+                            <input class="choiceCircle" id="id3Input1" type="radio" name="" value="">
+                            <label class="answerWord" id="id3Option1" for="id3Input1"></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id4OptionMultipleChoiceAnswer1">
+                            <input class="choiceCircle" id="id4Input1" type="radio" name="" value="">
+                            <label class="answerWord" id="id4Option1" for=""></label>
+                        </div>
+                    </div>
+                </div>
+                <div id="multipleChoice2" class="box hidden">
+                    <p id="multipleChoiceQuestion2"></p>
+                    <div class="multipleChoiceAnswers">
+                        <div class="multipleChoiceAnswer" id="id1OptionMultipleChoiceAnswer2">
+                            <input class="choiceCircle" id="id1Input2" type="radio" name="" value="">
+                            <label class="answerWord" id="id1Option2" for=""></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id2OptionMultipleChoiceAnswer2">
+                            <input class="choiceCircle" id="id2Input2" type="radio" name="" value="">
+                            <label class="answerWord" id="id2Option2" for=""></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id3OptionMultipleChoiceAnswer2">
+                            <input class="choiceCircle" id="id3Input2" type="radio" name="" value="">
+                            <label class="answerWord" id="id3Option2" for=""></label>
+                        </div>
+                        <div class="multipleChoiceAnswer" id="id4OptionMultipleChoiceAnswer2">
+                            <input class="choiceCircle" id="id4Input2" type="radio" name="" value="">
+                            <label class="answerWord" id="id4Option2" for=""></label>
+                        </div>
+                    </div>
+                </div>
+                <div id="checkBox" class="box hidden">
+                    <p id="checkBoxQuestion"></p>
+                    <div class="checkBoxAnswer" id="id1OptiondropDown"> 
+                        <input class="choiceSquare" type="checkbox" id="id1Box" name="" value="">
+                        <label for="id1Box"></label>
+                    </div>
+                    <div class="checkBoxAnswer" id="id2OptiondropDown"> 
+                        <input class="choiceSquare" type="checkbox" id="1d2Box" name="" value="">
+                        <label for="id2Box"></label>
+                    </div>        
+                    <div class="checkBoxAnswer" id="id3OptiondropDown"> 
+                        <input class="choiceSquare" type="checkbox" id="id3Box" name="" value="">
+                        <label for="id3Box"></label>
+                    </div>
+                    <div class="checkBoxAnswer" id="id4OptiondropDown"> 
+                        <input class="choiceSquare" type="checkbox" id="id4Box" name="" value="">
+                        <label for="id4Box"></label>
+                    </div>
+                </div>
+                <div id="intro" class="intro">
+                    <label for="myName">Bienvenu au Quiz de </label>
+                    <input class="textbox" type="text" id="myName" name="myName" placeholder="Mon Nom" value="">
+                </div>
+                <div id="end" class="intro hidden">
+                    <input type="submit" class='dropDownBox' value="Note: 100%" style="color: yellow; box-shadow: 0 0 512px #ffffffaa, 0 0 256px #ffff00;">
+            </div>
+            </form>
+
+            <img class="start" id="start" onclick="startQuiz()" style="height: 128px; width: 128px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Start_button_green_arrow.svg/2048px-Start_button_green_arrow.svg.png">
+            <img class="endButton hidden" id="endButton" onclick="returnQuiz()" style="height: 128px; width: 128px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Start_button_green_arrow.svg/2048px-Start_button_green_arrow.svg.png">
+            <img id="change2" class="change hidden" onclick="nextPage(questions)" style="height: 100%; aspect-ratio: 0.48/1;" src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AOo0EEUUyS9wCIMLegoCmBCPRrxz957aGi0%2BcNu2LMwqHEyvEjja2WigM2IBBDtJygKWPkfoy30CFbxJ18XgTtUKN84OkNUMkG6tKuqWeb3YXDex%2F0rz8B98dFixqizGgWhw%2B9eLsSinju73xbDTdo5tEbmqUg9WBeQvHABgf2kmq0aJAImXuufMMbrLuoAnkqoRbSUDCj2DDFAFzM6REeCYaGWF3rXqAyYAHjsyjJ7pW7UHreJPeyE1lzAWergRJyXi7QRbbZ3w7Jgtz9kmwC7%2BKF9V3eJWxaY4KlAuueuSn9uiRLcLNkPqVBesDTWdB5VMy4eVVhVYuG9Y5UZFAq9Fq0Xoc5%2BOOU5Lm6KKt1%2FTPIQhf55Jw2vi22KsIMi3xVldc98JXllyW%2BE2%2FuLc2ProhW5tAe9t5gBc8%2BdVmuRC6FKnx6ZyoZlZK9rFvnNfQNf1Bbhu6xkdciOr5UPEuNGfleGUaFIqjSV%2BHNnOJxDb4cQdAcSWai52hLj54G0qYE7GPtcYIjR8i0s3S2vn2vSVie63cXdw0AcVKOs55%2BRWoE%2BvXGYvQ0gF2lFXAESweq4birfj&sz=w512">    
+        </div>
+    </body>
+    <script>      
+        var questions = [];
+        var options = ['text', 'text', 'date', 'dropDown', 'dropDown', 'multipleChoice', 'multipleChoice'];
+
+        var text = [
+            {question:"Quel est le nom de mon enseignant(e) d'informatique en quatrième secondaire?", name:'informatiqueTeacher', placeholder:'Prénom Nom'}, 
+            {question:"Quel était le nom de mon enseignant(e) de mathématique et de sciences en première secondaire?", name:'scienceTeacher', placeholder:'Prénom Nom'},
+            {question:"Quel est le nom de mon école secondaire?", name:'secondarySchool', placeholder:"Nom de l'école"},
+            {question:"Quel est le nom de mon pays de naissance? (respectez les majuscules)", name:'birthCountry', placeholder:'Nom du pays'}
+        ];
+    
+        var date = [
+            {question:"Quelle est la date à laquelle j'ai commencé ce projet?", name:'projectDate'},//23 oct. 2023
+            {question:"Quelle est ma date de naissance?", name:'birthDate'} 
+        ];
+    
+        var dropDown = [
+            {question:"Quel est le jeu auquel je joue le plus souvent avec Zhich?", name:'zhichGame', value1:'Roblox', value2:'Minecraft', value3:'Valorant', value4:'League of Legends'},
+            {question:"Est-ce que mes parents sont séparés?", name:'parentsTogether', value1:'Oui', value2:'Non', value3:'Je ne sais pas.', value4:"J'ai oublié."},
+            {question:"Est-ce que je suis enfant unique?", name:'soloChild', value1:'Non', value2:'Oui', value3:"J'ai oublié.", value4:'Je ne sais pas.'},
+            {question:"Quel est le jeu auquel je joue le plus souvent avec Croissant?", name:'croissantGame', value1:'Roblox', value2:'Minecraft', value3:'Valorant', value4:'League of Legends'}    
+        ];
+    
+        var multipleChoice = [
+            {question:'Quel programme est ce que je veux faire au CÉGEP?', name:'cegep', value1:'Sciences de la santé', value2:'Sciences de la nature', value3:'Technique en informatique', value4:'Technique en architecture'},
+            {question:'Quel est mon âge', name:'age', value1:'2 ans', value2:'3 ans', value3:'4 ans', value4:'5 ans'},
+            {question:'À quelle activité parascolaire est-ce que je participe?', name:'parascolaire', value1:'Scouts', value2:'Rangers', value3:'Équipe de Roblox', value4:'Cadets'},
+            {question:"Quel sport est-ce que je fais à l'école en ce moment?", name:'schoolSport', value1:'Waterpolo', value2:'Basketball', value3:'Badminton', value4:'Flag football'}
+        ];
+    
+        var bonus = [
+            {question:'Quelle est ma couleur préférée?',  name:'favoriteColour', type:'color'},
+            {question:"Lesquels de ces aliments est-ce que j'aime beaucoup?", name:'food', type:'checkbox', value1:'Fromage', value2:'Riz', value3:'Olive', value4:"Melon d'eau"},
+            {question:"Quelle était ma note dans mon premier examen d'informatique qui était sur 54?", name:'grade', type:'range', min:'0', max:'54', step:'0.5', value:'32.5'},
+            {question:'Quel est mon courriel Groupwise?', name:'myEmail', type:'email'}
+        ];
+
+        function getRandomInt(max) {
+            yes = Math.floor(Math.random() * ( max + 1 ));
+            return (yes);
+        }
+        function getRandomElement(whichArray = []) {
+            console.log(whichArray)
+            console.log(whichArray.length)
+            questionNumber = getRandomInt(whichArray.length -1);
+            if (whichArray.length == 0) {
+                console.log(whichArray)
+                console.log('why')
+                console.log(bonus)
+                console.log(questionNumber)
+                questionWord = bonus[questionNumber];
+                
+            } else {
+                questionWord = whichArray[questionNumber];
+                whichArray.splice(questionNumber, 1);
+            }
+            console.log(questionWord + ' MIAM')
+            return questionWord;
+        }
+
+        function getQuestionType(theType = '', ) {
+            if (theType == 'text') {
+                console.log('le tex')
+                return text;
+            } else if (theType == 'date') {
+                console.log('now')
+                return date;
+            } else if (theType == 'dropDown') {
+                console.log('godown')
+                return dropDown;
+            } else if (theType == 'multipleChoice') {
+                console.log('i suck')
+                return multipleChoice;
+            } else {
+                console.log(theType + 'BOO');
+                return bonus;
+            }
+        }
+
+        var number = 2
+
+        function getNewQuestion() {
+            typeString = getRandomElement(options);
+            typeWord = getQuestionType(typeString);
+            console.log(typeString)
+            questionElements = getRandomElement(typeWord);
+            console.log(questionElements + 'ROAR')
+            for (let i = 0; i < options.length; i++) {
+                console.log(number)
+                if (options[i] == typeString) {
+                    number = 1
+                    break;
+                }
+            }
+            questions.push([typeString, questionElements, number]);
+            number = 2
+        }
+
+
+        function pickQuestions() {
+            for (let i = 0; i < 7; i++) {
+                console.log('e')
+                getNewQuestion();
+                theType = questions[i][0]
+                theQuestion = questions[i][1]
+                typeNumber = questions[i][2]
+                console.log(theQuestion)
+                console.log(typeNumber)
+                if (theType == 'text') {
+                    changeToText(theQuestion, typeNumber);
+                } else if (theType == 'date') {
+                    changeToDate(theQuestion, typeNumber);
+                } else if (theType == 'dropDown') {
+                    changeToDropDown(theQuestion, typeNumber);
+                } else if (theType == 'multipleChoice') {
+                    changeToMultipleChoice(theQuestion, typeNumber);
+                } else {
+                    console.log('broken')
+                    //changeToBonus(nextQuestion);
+                }
+                console.log(questions);
+                console.log(dropDown[0])
+            }
+            questionElements = getRandomElement(bonus);
+            //questions.push(['bonus', questionElements]);
+        }
+
+        var presentPage = 0
+        var presentAnswer = -1
+        var presentEmpty = ''
+        var presentQuestion = ''
+
+        function nextPage() {
+            console.log(questions)
+            document.getElementById(presentQuestion).classList.add("hidden");
+            ++presentPage
+            console.log(presentPage)
+            console.log(questions)
+            if (presentPage < questions.length) {
+                theType = questions[presentPage][0]
+                console.log(theType)
+                typeNumber = questions[presentPage][2]
+                presentQuestion = theType + typeNumber
+                console.log(presentQuestion)
+                document.getElementById(presentQuestion).classList.remove("hidden");
+            } else {
+                endQuiz()
+                document.getElementById('end').classList.remove("hidden");
+            }
+        }
+
+        function nextEmpty() {
+            document.getElementById(presentEmpty).classList.add("hidden");
+            console.log(presentAnswer)
+            presentAnswer++
+            if (presentAnswer < notAnswered.length) {
+                presentEmpty = notAnswered[presentAnswer]
+                console.log(presentEmpty)
+                document.getElementById(presentEmpty).classList.remove("hidden");
+                if (presentAnswer != 0) {
+                    document.getElementById('change1').classList.remove('noPointer');
+                    document.getElementById('change1').style.opacity = 1;
+                }
+            } else {
+                endQuiz()
+                document.getElementById('end').classList.remove("hidden");
+            }
+            console.log(presentAnswer + 'miammmm')
+        }
+
+        function lastEmpty() {
+            console.log(presentEmpty + 'now')
+            document.getElementById(presentEmpty).classList.add("hidden");
+            console.log(presentEmpty)
+            console.log(presentAnswer)
+            --presentAnswer
+            presentEmpty = notAnswered[presentAnswer]
+            if (presentAnswer == 0) {
+                document.getElementById('change1').classList.add('noPointer');
+                document.getElementById('change1').style.opacity = 0.75;
+            }
+            console.log(questions)
+            console.log(presentEmpty)
+            console.log(presentAnswer)
+            document.getElementById(presentEmpty).classList.remove("hidden");
+
+        }
+
+        function lastPage() {
+            console.log(presentQuestion + 'now')
+            document.getElementById(presentQuestion).classList.add("hidden");
+            console.log(presentQuestion)
+            console.log(presentPage)
+            if (presentPage != 0) {
+                --presentPage
+                theType = questions[presentPage][0]
+                TypeNumber = questions[presentPage][2]
+                presentQuestion = theType + TypeNumber
+                console.log(questions)
+            } else {
+                endQuiz()
+                document.getElementById('start').classList.remove("hidden");
+                presentQuestion = 'intro'
+            }
+            console.log(presentQuestion)
+            document.getElementById(presentQuestion).classList.remove("hidden");
+
+        }
+
+        function returnQuiz() {
+            document.getElementById('end').classList.add("hidden");
+            document.getElementById('mainBox').style.flexDirection = 'column';
+            document.getElementById('mainBox').style.justifyContent = 'center';
+            document.getElementById('start').classList.remove("hidden");
+            presentQuestion = 'intro'
+            document.getElementById(presentQuestion).classList.remove("hidden");
+            presentPage = 0
+        }
+
+        function startQuiz() {
+            document.getElementById('intro').classList.add("hidden");
+            document.getElementById('start').classList.add("hidden");
+            document.getElementById('mainBox').style.flexDirection = 'row';
+            document.getElementById('mainBox').style.justifyContent = 'space-between';
+            theType = questions[presentPage][0]
+            typeNumber = questions[presentPage][2]
+            presentQuestion = theType + typeNumber
+            console.log(presentQuestion)
+            document.getElementById(presentQuestion).classList.remove("hidden");
+            for (let i = 1; i < 3; i++) {
+                document.getElementById('change' + i).classList.remove("hidden");
+            }  
+        }
+
+        function restart() {
+            document.getElementById('end').classList.add("hidden");
+            document.getElementById('mainBox').style.flexDirection = 'row';
+            document.getElementById('mainBox').style.justifyContent = 'space-between';
+            presentEmpty = 'end'
+            nextEmpty();
+            document.getElementById('change1').onclick = lastEmpty;
+            document.getElementById('change2').onclick = nextEmpty;
+            document.getElementById('change1').classList.remove("hidden");
+            document.getElementById('change1').classList.add('noPointer');
+            document.getElementById('change1').style.opacity = 0.75;
+            document.getElementById('change2').classList.remove("hidden");
+        }
+
+        function endQuiz() {
+            for (let i = 1; i < 3; i++) {
+                document.getElementById('change' + i).classList.add("hidden");
+            }
+            document.getElementById('mainBox').style.flexDirection = 'column';
+            document.getElementById('mainBox').style.justifyContent = 'center';  
+        }
+
+        //function changeToBonus(newQuestion)
+
+        function changeToText(newQuestion, number) {
+            console.log('textQuestion' + number + 'est')
+            document.getElementById('textQuestion' + number).innerText = newQuestion['question'];
+            document.getElementById('textAnswer' + number).name = newQuestion['name'];
+            document.getElementById('textAnswer' + number).placeholder = newQuestion['placeholder'];
+            document.getElementById('textAnswer' + number).id = newQuestion['name'];
+        }
+        
+        function changeToDate(newQuestion, number) {
+            document.getElementById('dateQuestion').innerText = newQuestion['question'];
+            document.getElementById('dateAnswer').name = newQuestion['name'];
+            document.getElementById('dateAnswer').id = newQuestion['name'];
+        }
+
+        function changeToDropDown(newQuestion, number) {
+            document.getElementById('dropDownQuestion' + number).innerText = newQuestion['question'];
+            document.getElementById('dropDownSelect' + number).name = newQuestion['name'];
+            console.log(document.getElementById('dropDownSelect' + number).name);
+            for (let i = 1; i < 5; i++) {
+                document.getElementById(number + 'value' + i).value = newQuestion['value' + i];
+                document.getElementById(number + 'value' + i).innerText = newQuestion['value' + i];
+            }
+            document.getElementById('dropDownSelect' + number).id = newQuestion['name'];
+        }
+
+        function changeToMultipleChoice(newQuestion, number) {
+            document.getElementById('multipleChoiceQuestion' + number).innerText = newQuestion['question'];
+            for (let i = 1; i < 5; i++) {
+                document.getElementById('id' + i + 'Input' + number).name = newQuestion['name'];
+                document.getElementById('id' + i + 'Input' + number).value = newQuestion['value' + i];
+                document.getElementById('id' + i + 'Option' + number).innerText = newQuestion['value' + i];
+            }
+            if (newQuestion['name'] == 'cegep') {
+                document.getElementById('id2OptionMultipleChoiceAnswer' + number).id = newQuestion['name'];
+            } else if (newQuestion['name'] == 'age') {
+                document.getElementById('id3OptionMultipleChoiceAnswer' + number).id = newQuestion['name'];
+            } else if (newQuestion['name'] == 'parascolaire') {
+                document.getElementById('id4OptionMultipleChoiceAnswer' + number).id = newQuestion['name'];
+            } else {
+                document.getElementById('id1OptionMultipleChoiceAnswer' + number).id = newQuestion['name'];
+            }
+        }
+
+        pickQuestions();
+
+    </script>
+    <script>
+        var notAnswered = []
+        const form = document.forms['myForm']
+
+        time = 0
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            var answers = {
+                myName: form.myName.value
+            }
+            for (i = 0; i < 7; i++) {
+                daName = questions[i][1].name
+                theName = form[questions[i][1].name]
+                console.log(theName)
+                answers[daName] = theName.value.toString()
+            };
+
+            console.log(answers);
+
+            const correctAnswers = {
+                informatiqueTeacher: 'ZhichGaming',
+                scienceTeacher: 'Bill Nye the Science Guy',
+                secondarySchool: 'International School of Humans',
+                birthCountry: 'Antartica',
+                projectDate: '2023-10-23',
+                birthDate: '2000-01-01',
+                zhichGame: 'Minecraft',
+                parentsTogether: 'Je ne sais pas.',
+                soloChild: "J'ai oublié.",
+                croissantGame: 'Valorant',
+                cegep: 'Technique en informatique',
+                age: '2 ans',
+                parascolaire: 'Équipe de Roblox',
+                schoolSport: 'Waterpolo',
+                favoriteColour: '#00000000',
+                food: '',
+                range: 'grade',
+                myEmail: 'georgelaplante@yahoo.com',
+                myName: 'LaPlante, George',
+            };
+
+
+
+            if (!containsAnswers()) {
+                if (time == 0) {
+                    time++
+                    alert('Vous avez oublié des questions')
+                    console.log(notAnswered)
+                    restart()
+                    return;
+                }
+            }
+
+            function containsAnswers() {
+                let result = true
+                i = 0
+                for (var key in answers) {
+                    console.log
+                    console.log(form.myName.value)
+                    console.log(answers[key])
+                    console.log(answers)
+                    console.log(key)
+                    if (answers[key] == '') {
+                        console.log(i)
+                        if (i == 0) {
+                            notAnswered.push('intro')
+                            console.log(i+'rmamdaej')
+                        } else {
+                            notAnswered.push(questions[i-1][0] + questions[i-1][2])
+                        }
+                        result = false;
+                        console.log('nice')
+                        console.log(notAnswered)     
+                    }
+                    i++
+                }
+                return result;
+            };
+
+            let score = 0;
+            for (var key in answers) {
+                console.log(answers[key])
+                if (answers[key] == correctAnswers[key]) {
+                    console.log(key)
+                    document.getElementById(key).classList.add('correct');
+                    score++;
+                } else {
+                    console.log(key)
+                    document.getElementById(key).classList.add('incorrect');
+                }
+            }
+        
+            alert(`Vous avez obtenu ${score} points sur 8!`);
+            console.log(score)
+            
+            i = 0
+            for (var key in answers) {
+                if (i == 0) {
+                    document.getElementById('intro').classList.add('noPointer');
+                } else {
+                    questionNumber = questions[i-1][0] + questions[i-1][2]
+                    if (questions[i-1][0] == 'multipleChoice') {
+                        // select the relevant radio input elements:
+                        $('input[name="example"]')
+                            // bind a change-event handler using 'on()':
+                            .on('change', function(){
+                                // re-select the same elements:
+                                $('input[name="example"]')
+                                    // set the 'checked' property back to the default (on page-load) state:
+                                    .prop('checked', function(){
+                                        return this.defaultChecked;
+                                    });
+                            });    
+                    }
+                    console.log(questionNumber)
+                    document.getElementById(questionNumber).classList.add('noPointer');
+                }
+                i++
+            }
+            document.getElementById('change1').onclick = lastPage;
+            document.getElementById('change2').onclick = nextPage; 
+            returnQuiz();
+            return;
+
+        });
+            
+    </script>
+</html>

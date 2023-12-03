@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/jouer.js"></script>
+        <title>Mémo</title>
+    </head>
+
+    <body>
+        <div class="hidden" id="info">
+            <div id="chrono" class="compteur"> 4.87 secondes restantes
+            </div>
+            <div id="compteur" class="chrono"> 8 essais
+            </div>
+        </div>
+        <main id="main">
+            <div class="home" id="home">
+                <div class="submarine-red" id="submarine-red">
+                    <div class="top-red">
+                        <button class="play" onclick="start()">JOUER</button>
+                        <div class="pipe-red">
+                            <div class="light"></div>
+                        </div>
+                    </div>
+                    <div class="window-red window-1" onclick="setSmall()">
+                        <button class="level" id="small">Facile</button>
+                        <div class="shine"></div>
+                    </div>
+                    <div class="window-red window-2" onclick="setMedium()">
+                        <button class="level" id="medium">Moyen</button>
+                        <div class="shine"></div>
+                    </div>
+                    <div class="window-red window-3" onclick="setLarge()">
+                        <button class="level" id="large">Difficile</button>
+                        <div class="shine"></div>
+                    </div>
+                    <div class="shadow-red"></div>
+                    <div class="propeller">
+                        <div class="back-red"></div>
+                        <div class="wing"></div>
+                        <div class="bubble bubble-1"></div>
+                        <div class="bubble bubble-2"></div>
+                        <div class="bubble bubble-3"></div>
+                    </div>
+                </div>
+                <div class="submarine-green hidden" id="submarine-green">
+                    <div class="phrase" id="phrase">Bravo! Vous avez gagné!</div>
+                    <div class="highScore" id="highScore">Record: 820 points</div>
+                    <div class="score" id="score">483 points</div>
+                    <div class="top-green">
+                        <button class="play restart" onclick="restart()">REJOUER</button>
+                        <div class="pipe-green">
+                            <div class="light"></div>
+                        </div>
+                    </div>
+                    <div class="window-green window-1">
+                        <div class="shine"></div>
+                    </div>
+                    <div class="window-green window-2">
+                        <div class="shine"></div>
+                    </div>
+                    <div class="shadow-green"></div>
+                    <div class="propeller">
+                        <div class="back-green"></div>
+                        <div class="wing"></div>
+                        <div class="bubble bubble-1"></div>
+                        <div class="bubble bubble-2"></div>
+                        <div class="bubble bubble-3"></div>
+                    </div>
+                </div>
+                <div class="wave" id="wave">
+                    <div class="wave1" id="wave1"></div>
+                    <div class="wave2" id="wave2"></div>
+                </div>
+            </div>
+            <div class="sm rangee hidden" id="sm">
+            </div>
+            <div class="md rangee hidden" id="md">
+            </div>
+            <div class="lg rangee hidden" id="lg">
+            </div>
+        </main>
+        <script>
+            document.getElementById("small").style.backgroundColor = "#00aaff"
+            flyBubbles()
+        </script>
+    </body>
+</html>
