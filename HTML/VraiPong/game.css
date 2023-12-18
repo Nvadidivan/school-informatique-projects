@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "pong";
+    src: url(pong-score.ttf) format("truetype");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    overflow: hidden;
+}
+
+.line {
+    background-image: linear-gradient(rgb(255, 255, 255) 33%, rgba(0, 0, 0, 0) 0%);
+    background-size: 5px 25px;
+    width: 5px; 
+    height: 100vh;
+    position:absolute;
+    right:50%;
+    top: 0; 
+}
+
+.score {
+    width: 63px;
+    position: absolute;
+    top: 10%;
+    font-family: pong;
+    color: white;
+    font-size: 126px;
+}
+
+.sLeft {
+    left: 30%;
+}
+
+.sRight {
+    right: 30%;
+}
+
+.ball {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background-color: white;
+}
+
+.wall {
+    height: 150px;
+    width: 25px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+
+}
+
+.wLeft {
+    left: 10%;
+}
+
+.wRight {
+    right: 10%;
+}
+
