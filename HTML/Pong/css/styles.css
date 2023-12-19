@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
+canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+}
