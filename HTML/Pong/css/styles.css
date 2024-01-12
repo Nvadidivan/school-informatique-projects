@@ -2,11 +2,13 @@ body {
     background-color: black;
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
+    overflow: hidden;
 }
 
 canvas {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 75px;
+    margin-top: 10%;
+    margin-bottom: 0;
 }
