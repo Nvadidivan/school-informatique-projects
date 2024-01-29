@@ -145,6 +145,7 @@ function createSquare() {
         console.log("ERROR")
         console.log(error)
     }
+    console.log(long)
 
     let colliding = false
     let xDir;
@@ -163,7 +164,6 @@ function createSquare() {
     let vy = (Math.random() + 0.5) * 200 * yDir
     if (checkOccupied(x, y, long, long)) {
         colliding = true
-    } else {
     }
         /*for (let i = 0; i < gameObjects.length; i++) {
             let obj2 = gameObjects[i]

@@ -9,22 +9,29 @@ function checkOccupied(x, y, w, h) {
     let yS = Math.floor(y / 20)
     let yE = Math.floor((y + h) / 20)
 
-    if (xS < 0 || yS <= 0 || xE >= grid.length || yE >= grid[0].length) {
+    if (xS <= 0 || yS <= 0 || xE >= grid.length - 1 || yE >= grid[0].length - 1) {
+        console.log(xS)
+        console.log(yS)
+        console.log(xE)
+        console.log(yE)
+        console.log(grid.length - 1)
+        console.log(grid[0].length - 1)
         console.log("yes")
         console.log(error)
         return true;
     }
-    for (let i = xS; i < xE; i++) {
-        
-        for (let j = yS; j < yE; j++) {
-
+    for (let i = xS; i <= xE; i++) {
+        for (let j = yS; j <= yE; j++) {
+            console.log(grid[i][j])
             if (grid[i][j][0]) {
+                console.log(grid[i][j])
                 console.log("very")
                 console.log(error)
                 return true;
             }
         }
     }
+    return false;
 }
 
 function empty(value) {
@@ -41,7 +48,7 @@ function empty(value) {
             return false
         }
     }
-    console.log(value)
+
     return true
 }
 
@@ -54,47 +61,49 @@ function shuffleGrid(array) {
     }
 }
 
-function filterOptions() {
-    let filter = []
-    for (let i = 1; i < grid.length - 1; i++) {
-        for (let j = 1; j < grid[0].length - 1; j++) {
-            let size = grid[i][j][3]
+function maxSize(i) {
+    for (let j = 0; j < grid[0].length - 1; j++) {
+        let size = grid[i][j][3]
 
-            if (grid[i][j][0] == true) {
-                size = 0
-            } else {
-                for (let k = 0; k < 4; k++) {
-                    let x = i + k
-                    if (x >= grid.length - 1) {
-                        let smallX = x - 1
-                        size = Math.min(size, smallX)
-                    } else {
-                        for (let m = 0; m < 4; m++) {
-                            let y = j + m
-                            if (y >= grid[0].length - 1) {
-                                let smallY = y - 1
-                                size = Math.min(size, smallY)
-                            } else {
-                                if (grid[x][y][0] == true) {
-                                    let small = Math.max(x, y)
-                                    size = Math.min(size, small - 1)
-                                    
-                                }
+        if (grid[i][j][0] == true) {
+            size = 0
+        } else {
+            for (let k = 0; k < 4; k++) {
+                let x = i + k
+                if (x >= grid.length - 1) {
+                    let smallX = k - 1
+                    size = Math.min(size, smallX)
+                } else {
+                    for (let m = 0; m < 4; m++) {
+                        let y = j + m
+                        if (y >= grid[0].length - 1) {
+                            let smallY = m - 1
+                            size = Math.min(size, smallY)
+                        } else {
+                            if (grid[x][y][0] == true) {
+                                let small = Math.max(k, m)
+                                size = Math.min(size, small - 1)
+                                
                             }
                         }
                     }
-
                 }
+
             }
-            grid[i][j][3] = size
         }
+        grid[i][j][3] = size
+    }
+}
+
+function filterOptions() {
+    let filter = []
+    for (let i = 0; i < grid.length - 1; i++) {
+        maxSize(i)
         let temp = grid[i].filter(empty)
         if (temp.length >= 1) {
             filter.push(temp)
-            console.log(temp)
         }
     }
-    console.log(filter)
     return filter
 }
 
