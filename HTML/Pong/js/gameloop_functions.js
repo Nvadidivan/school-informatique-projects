@@ -13,9 +13,9 @@ function update() {
         thePaddle.update(secondsPassed)
     }
 
-    clearGrid()
-
     for (let i = 0; i < gameObjects.length; i++) {
+        let square = gameObjects[i]
+
         square.update(secondsPassed);
     }
 }

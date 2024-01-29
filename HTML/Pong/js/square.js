@@ -1,9 +1,8 @@
 "use strict"
 
-
 function createSquare() {
-    let square = gameObjects[i]
     for (let i = 0; i < gameObjects.length; i++) {
+        let square = gameObjects[i]
         occupied(square.x, square.y, square.width, square.height)
     }
 
@@ -51,19 +50,15 @@ function createSquare() {
         } else {
             createSquare()
         }
-    } else {
     }
-    
 
-   
-        /*for (let i = 0; i < gameObjects.length; i++) {
-            let obj2 = gameObjects[i]
-            if (rectIntersect(x - size/10, y - size/10, size + size/10, size + size/10, obj2.x, obj2.y, obj2.width, obj2.height)) {
-                colliding = true
-                createSquare()
-            }
-        }*/
-    
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+
+            grid[i][j][0] = false
+            grid[i][j][3] = 3
+        }
+    }
 }
 
 
@@ -93,13 +88,16 @@ function occupied(x, y ,w, h) {
 
 function filterOptions() {
     let filter = []
+
     for (let i = 0; i < grid.length; i++) {
         maxSize(i)
         let temp = grid[i].filter(empty)
+
         if (temp.length >= 1) {
             filter.push(temp)
         }
     }
+
     return filter
 }
 
@@ -109,41 +107,51 @@ function maxSize(i) {
         let size = grid[i][j][3]
 
         if (grid[i][j][0]) {
-            size = 0
-        } else {
-            for (let k = 0; k < 4; k++) {
-                let x = i + k
-                if (x >= grid.length - 1) {
-                    let smallX = k - 1
-                    size = Math.min(size, smallX)
-                } else {
-                    for (let m = 0; m < 4; m++) {
-                        let y = j + m
-                        if (y >= grid[0].length - 1) {
-                            let smallY = m - 1
-                            size = Math.min(size, smallY)
-                        } else {
-                            if (grid[x][y][0]) {
-                                let small = Math.max(k, m)
-                                size = Math.min(size, small - 1)
-                                
-                            }
-                        }
-                    }
+            grid[i][j][3] = 0
+            return
+        }
+
+        // Max size of the square is 3 (0-3) so we loop through 4 times.
+        for (let k = 0; k < 4; k++) {
+            let x = i + k
+            let checkShouldRun = true
+
+            // Check if the square is out of bounds.
+            if (x > grid.length - 1) {
+                let smallX = k - 1
+                grid[i][j][3] = Math.min(size, smallX)
+                checkShouldRun = false
+            }
+
+            // Loop through 3 grid spaces (from 0 to 3).
+            for (let m = 0; m < 4; m++) {
+                let y = j + m
+
+                // Check if the square is out of bounds (vertically).
+                if (y > grid[0].length - 1) {
+                    let smallY = m - 1
+                    size = Math.min(size, smallY)
+                    checkShouldRun = false
                 }
 
+                // Check if the square is occupied.
+                if (checkShouldRun && grid[x][y][0]) {
+                    let small = Math.max(k, m)
+                    size = Math.min(size, small - 1)
+                }
             }
         }
+
         grid[i][j][3] = size
     }
 }
 
 
 function empty(value) {
-
     if (value[1] < 0 || value[1] > grid.length - 1 || value[2] < 0 || value[3] < 0 || value[0]) {
         return false
     }
+
     if (game == "exam" || game == "base") {
         if (value[2] > Math.ceil(grid[0].length / 2)) {
             return false
@@ -174,26 +182,18 @@ function checkOccupied(x, y, w, h) {
     let yS = Math.floor(y / 20)
     let yE = Math.floor((y + h) / 20)
 
-    if (xS <= 0 || yS <= 0 || xE >= grid.length - 1 || yE >= grid[0].length - 1) {
+    if (xS < 0 || yS < 0 || xE > grid.length - 1 || yE > grid[0].length - 1) {
+        console.log(xS, yS, xE, yE)
         return true;
     }
+
     for (let i = xS; i < xE; i++) {
         for (let j = yS; j < yE; j++) {
             if (grid[i][j][0]) {
+                console.log(i, j)
                 return true;
             }
         }
     }
     return false;
 }
-
-
-/*function clearGrid() {
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[0].length; j++) {
-
-            grid[i][j][0] = false
-            grid[i][j][3] = 3
-        }
-    }
-}*/
