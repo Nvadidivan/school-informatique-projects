@@ -95,9 +95,9 @@ window.addEventListener("keydown", function(e) {
         let random = Math.floor(Math.random()*gameObjects.length)
         gameObjects.splice(random, 1)
     } else if (e.key == " ") {
-        console.log(filterOptions())
+        //for tests [1]
     } else if (e.key == "t") {
-        filterOptions()
+        //for tests [2]
     }
 })
 

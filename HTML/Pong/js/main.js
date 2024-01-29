@@ -24,4 +24,3 @@ function gameLoop(timeStamp)
 
     window.requestAnimationFrame(gameLoop);
 }
-
