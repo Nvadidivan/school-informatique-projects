@@ -1,5 +1,6 @@
 "use strict"
 
+
 function detectCollisions(){
     let obj1;
     let obj2;
@@ -101,6 +102,7 @@ function detectCollisions(){
     }
 }
 
+
 function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
     // Check x and y for overlap
     if (x1 + w1 >= x2 && x1 <= x2 + w2 && y1 + h1 >= y2 && y1 <= y2 + h2){
@@ -108,6 +110,7 @@ function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
     }
     return false;
 }
+
 
 function wallCollision(x, y, w, h) {
     if (x <= 2) {

@@ -1,41 +1,49 @@
 "use strict"
 
-let points = 0
 
 function base() {
 
 }
 
+
 function setBase() {
     
 }
 
+
 function stopBase() {
 }
+
 
 function exam() {
 
 }
 
+
 function setExam() {
     document.getElementById("canvas").addEventListener("mousemove", mouseMove)
 }
+
 
 function stopExam() {
     document.getElementById("canvas").removeEventListener("mousemove", mouseMove)
 }
 
+
 function zen() {
 
 }
+
 
 function setZen() {
     canvas.style.bottom = "5%";
 }
 
+
 function stopZen() {
     canvas.style.bottom = "0";
 }
+
 
 function movePaddle(key) {
     if (key == "ArrowLeft") {
@@ -50,11 +58,13 @@ function movePaddle(key) {
     }
 }
 
+
 window.addEventListener('keyup', function (e) {
     if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
         movePaddle(false)
     }
 })
+
 
 window.addEventListener("keydown", function(e) {
     if ((e.key == "ArrowLeft" || e.key == "ArrowRight") && game == "base") {
@@ -85,11 +95,12 @@ window.addEventListener("keydown", function(e) {
         let random = Math.floor(Math.random()*gameObjects.length)
         gameObjects.splice(random, 1)
     } else if (e.key == " ") {
-        console.log(grid)
+        console.log(filterOptions())
     } else if (e.key == "t") {
         filterOptions()
     }
 })
+
 
 function setMode() {
     gameObjects = []
@@ -104,6 +115,7 @@ function setMode() {
     }
 }
 
+
 function stopMode() {
     if (game == "base") {
         stopBase()
@@ -114,9 +126,11 @@ function stopMode() {
     }
 }
 
+
 function mouseMove(e) {
     thePaddle.x = e.offsetX - thePaddle.width/2
 }
+
 
 function paddlePoint(nb) {
     let square = gameObjects[nb]
