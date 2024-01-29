@@ -1,14 +1,36 @@
+@font-face {
+    font-family: "pong";
+    src: url("../font/remedial-pong/remedial-pong.ttf") format("truetype");
+}
+
 body {
+    font-family: pong;
+    color: white;
     background-color: black;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: medium;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 canvas {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
-    margin-bottom: 0;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 0;
+}
+
+.pong {
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    height: 11%;
+    position: absolute;
+    font-size: 64px;
+    left: 40%;
+    right: 40%;
+    top: 0;
+    align-items: center;
 }
