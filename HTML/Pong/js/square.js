@@ -1,9 +1,8 @@
 "use strict"
 
-
 function createSquare() {
-    let square = gameObjects[i]
     for (let i = 0; i < gameObjects.length; i++) {
+        let square = gameObjects[i]
         occupied(square.x, square.y, square.width, square.height)
     }
 
@@ -51,19 +50,15 @@ function createSquare() {
         } else {
             createSquare()
         }
-    } else {
     }
-    
 
-   
-        /*for (let i = 0; i < gameObjects.length; i++) {
-            let obj2 = gameObjects[i]
-            if (rectIntersect(x - size/10, y - size/10, size + size/10, size + size/10, obj2.x, obj2.y, obj2.width, obj2.height)) {
-                colliding = true
-                createSquare()
-            }
-        }*/
-    
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+
+            grid[i][j][0] = false
+            grid[i][j][3] = 3
+        }
+    }
 }
 
 
@@ -186,14 +181,3 @@ function checkOccupied(x, y, w, h) {
     }
     return false;
 }
-
-
-/*function clearGrid() {
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[0].length; j++) {
-
-            grid[i][j][0] = false
-            grid[i][j][3] = 3
-        }
-    }
-}*/
