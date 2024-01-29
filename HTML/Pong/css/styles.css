@@ -13,7 +13,7 @@ body {
 
 canvas {
     display: block;
-    position: absolute;
+    position: fixed;
     left: 10%;
     right: 10%;
     bottom: 0;
@@ -27,10 +27,37 @@ canvas {
     padding: 0;
     width: 20%;
     height: 11%;
-    position: absolute;
+    position: fixed;
     font-size: 64px;
     left: 40%;
     right: 40%;
     top: 0;
     align-items: center;
+}
+
+.score {
+    position: fixed;
+    left: 92%;
+    right: 2%;
+    width: 6%;
+    top: 47%;
+    bottom: 47%;
+    height: 6%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.scoreWord {
+    font-size: 26px;
+    height: 45%;
+    margin-bottom: 10%;
+}
+
+.scoreNumber {
+    font-size: 24px;
+    height: 45%;
+    margin-top: 10%;
 }

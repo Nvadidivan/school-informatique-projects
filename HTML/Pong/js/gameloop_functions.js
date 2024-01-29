@@ -9,7 +9,7 @@ function time(timeStamp) {
 
 
 function update() {
-    if (game != "zen" && game != "start") {
+    if (game != "zen" && game != "home") {
         thePaddle.update(secondsPassed)
     }
 
@@ -36,7 +36,7 @@ function redraw() {
         context.fillText("EXAM", canvas.width/2, canvas.height/2+150);
     } else if (game == "zen") {
         context.fillText("ZEN", canvas.width/2, canvas.height/2+150);
-    } else if (game == "start") {
+    } else if (game == "home") {
         context.fillText("PONG", canvas.width/2, canvas.height/2+150);
     }
 
@@ -48,7 +48,7 @@ function redraw() {
     context.moveTo(0, 0);
     context.lineTo(canvas.width, 0);
     context.lineTo(canvas.width, canvas.height);
-    if (game == "zen" || game == "start") {
+    if (game == "zen" || game == "home") {
         context.lineTo(0, canvas.height)  
     } else {
         context.moveTo(0, canvas.height)
@@ -56,7 +56,7 @@ function redraw() {
     context.lineTo(0, 0)
     context.stroke()
 
-    if (game != "zen" && game != "start") {
+    if (game != "zen" && game != "home") {
         thePaddle.draw() 
     }
 
@@ -83,7 +83,9 @@ function instructions() {
     context.fillStyle = "#ffffff44";
     context.textAlign = "center";
     context.fillText("🄱 = Base    🄴 = Exam    🅉 = Zen    🅁 = Recommencer", canvas.width/2, canvas.height/6);
-    if (game == "zen") {
+    if (game == "zen" || game == "home") {
         context.fillText("[+] = Ajouter    [-] = Enlever", canvas.width/2, canvas.height/5 + 50);
+    } else {
+        context.fillText("[ Espace ] = Commencer", canvas.width/2, canvas.height/5 + 50);
     }
 }

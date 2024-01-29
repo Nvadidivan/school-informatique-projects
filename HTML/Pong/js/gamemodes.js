@@ -7,6 +7,7 @@ function base() {
 
 
 function setBase() {
+    points = 0
     
 }
 
@@ -21,6 +22,7 @@ function exam() {
 
 
 function setExam() {
+    points = 0
     document.getElementById("canvas").addEventListener("mousemove", mouseMove)
 }
 
@@ -121,7 +123,7 @@ function stopMode() {
         stopBase()
     } else if (game == "exam") {
         stopExam()
-    } else if (game == "zen") {
+    } else if (game == "zen" || game == "home") {
         stopZen()
     }
 }

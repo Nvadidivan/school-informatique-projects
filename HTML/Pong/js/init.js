@@ -22,8 +22,8 @@ function init(){
     context.font = "400px pong";
     context.fillStyle = "#ffffff44";
     context.textAlign = "center";
-    context.fillText("PONG", canvas.width/2, canvas.height/3*2);
-    game = "start"
+    context.fillText("Hello World!", canvas.width/2, canvas.height/3*2);
+    game = "home"
     setZen()
     createWorld()
     window.requestAnimationFrame(gameLoop);
@@ -43,7 +43,7 @@ function setGrid() {
 
 
 function createWorld(){
-    if (game != "zen" && game != "start") {
+    if (game != "zen" && game != "home") {
         createPaddle()
     }
     for (let i = 0; i < 2; i++) {

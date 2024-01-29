@@ -5,7 +5,7 @@ function detectCollisions(){
     let obj1;
     let obj2;
 
-    if (game != "zen" && game != "start") {
+    if (game != "zen" && game != "home") {
         if (wallCollision(thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height) == 0 && thePaddle.vfx <= 0) {
             thePaddle.x = 2
         } else if (wallCollision(thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height) == 1 && thePaddle.vfx >= 0) {
@@ -28,17 +28,20 @@ function detectCollisions(){
             obj1.y = 3
             obj1.vy *= -1
         }
-        if ((game == "zen" || game == "start") && wallCollision(obj1.x, obj1.y, obj1.width, obj1.height) == 3) {
+        if ((game == "zen" || game == "home") && wallCollision(obj1.x, obj1.y, obj1.width, obj1.height) == 3) {
             obj1.y = canvas.height - obj1.height - 3
             obj1.vy *= -1
         }
 
-        if (game != "zen" && game != "start") {
+        if (game != "zen" && game != "home") {
             obj2 = thePaddle;
 
             if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)) {
                 if (game == "base") {
                     paddlePoint(i)
+                } else if (game == "exam") {
+                    points++
+                    document.getElementById("scoreNumber").innerText = points
                 }
 
                 let giveBonus = -1
