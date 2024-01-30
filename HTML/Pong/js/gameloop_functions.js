@@ -13,10 +13,11 @@ function update() {
         thePaddle.update(secondsPassed)
     }
 
-    for (let i = 0; i < gameObjects.length; i++) {
-        let square = gameObjects[i]
-
-        square.update(secondsPassed);
+    if (active) {
+        for (let i = 0; i < gameObjects.length; i++) {
+            let square = gameObjects[i]
+            square.update(secondsPassed);
+        }
     }
 }
 
@@ -60,15 +61,17 @@ function redraw() {
         thePaddle.draw() 
     }
 
-    deleteSquare()
+    deleteSquares()
 
-    for (let i = 0; i < gameObjects.length; i++) {
-        gameObjects[i].draw();
+    if (active) {
+        for (let i = 0; i < gameObjects.length; i++) {
+            gameObjects[i].draw();
+        }
     }
 }
 
 
-function deleteSquare() {
+function deleteSquares() {
     for (let i = 0; i < gameObjects.length; i++) {
         let square = gameObjects[i]
         if (square.x + square.width < 0 || square.x > canvas.width || square.y + square.height < 0 || square.y > canvas.height) {
@@ -85,7 +88,10 @@ function instructions() {
     context.fillText("🄱 = Base    🄴 = Exam    🅉 = Zen    🅁 = Recommencer", canvas.width/2, canvas.height/6);
     if (game == "zen" || game == "home") {
         context.fillText("[+] = Ajouter    [-] = Enlever", canvas.width/2, canvas.height/5 + 50);
-    } else {
-        context.fillText("[ Espace ] = Commencer", canvas.width/2, canvas.height/5 + 50);
+    } else if (game == "exam") {
+        context.font = "42px pong";
+        context.fillText("[Espace] = Commencer    [+] = Ajouter    [-] = Enlever", canvas.width/2, canvas.height/5 + 50);
+    } else if (game == "base") {
+        context.fillText("[Espace] = Commencer", canvas.width/2, canvas.height/5 + 50);
     }
 }

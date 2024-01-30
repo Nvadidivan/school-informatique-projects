@@ -40,8 +40,7 @@ function detectCollisions(){
                 if (game == "base") {
                     paddlePoint(i)
                 } else if (game == "exam") {
-                    points++
-                    document.getElementById("scoreNumber").innerText = points
+                    changePoint(1)
                 }
 
                 let giveBonus = -1

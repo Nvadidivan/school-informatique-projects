@@ -8,11 +8,17 @@ function base() {
 
 function setBase() {
     points = 0
-    
+    document.getElementById("squareNumber").innerText = points
 }
 
 
 function stopBase() {
+    active = false
+}
+
+
+function startBase() {
+    active = true
 }
 
 
@@ -23,12 +29,21 @@ function exam() {
 
 function setExam() {
     points = 0
+    document.getElementById("squareNumber").innerText = points
+    document.getElementById("square").classList.remove("hidden")
     document.getElementById("canvas").addEventListener("mousemove", mouseMove)
 }
 
 
 function stopExam() {
+    active = false
+    document.getElementById("square").classList.add("hidden")
     document.getElementById("canvas").removeEventListener("mousemove", mouseMove)
+}
+
+
+function startExam() {
+    active = true
 }
 
 
@@ -38,12 +53,18 @@ function zen() {
 
 
 function setZen() {
+    active = true
+    canvas.height = window.innerHeight * 0.9;
     canvas.style.bottom = "5%";
+    document.getElementById("square").classList.remove("hidden")
 }
 
 
 function stopZen() {
+    active = false
+    canvas.height = window.innerHeight * 0.95;
     canvas.style.bottom = "0";
+    document.getElementById("square").classList.add("hidden")
 }
 
 
@@ -94,14 +115,22 @@ window.addEventListener("keydown", function(e) {
     } else if ((e.key == "=" || e.key == "+") && game != "base") {
         createSquare()
     } else if (e.key == "-" && game != "base") {
-        let random = Math.floor(Math.random()*gameObjects.length)
-        gameObjects.splice(random, 1)
+        deleteSquare()
     } else if (e.key == " ") {
-        //for tests [1]
+        startMode()
     } else if (e.key == "t") {
         //for tests [2]
     }
 })
+
+
+function startMode() {
+    if (game == "base") {
+        startBase()
+    } else if (game == "exam") {
+        startExam()
+    }
+}
 
 
 function setMode() {
@@ -149,4 +178,24 @@ function paddlePoint(nb) {
         
         points += 30
     }
+}
+
+function changePoint(type) {
+    console.log(points)
+    points += type
+    console.log(points)
+    console.log(type)
+    if (points == 9 && type == 1) {
+        document.getElementById("score").style.right = "2%"
+        document.getElementById("score").style.left = "92%"
+    }
+    document.getElementById("scoreNumber").innerText = points
+}
+
+function spawnSquare() {
+    if (gameObjects.length >= 10) {
+        document.getElementById("square").style.left = "1%"
+        document.getElementById("square").style.right = "93%"
+    }
+    document.getElementById("squareNumber").innerText = gameObjects.length
 }

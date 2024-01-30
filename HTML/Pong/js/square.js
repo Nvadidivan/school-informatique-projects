@@ -54,6 +54,7 @@ function createSquare() {
 
         if (colliding == false) {
             gameObjects.push(new Square(context, x, y, vx, vy, long))
+            spawnSquare()
         } else {
             createSquare()
         }
@@ -214,4 +215,11 @@ function checkOccupied(x, y, l) {
         }
     }
     return false;
+}
+
+
+function deleteSquare() {
+    let random = Math.floor(Math.random()*gameObjects.length)
+    gameObjects.splice(random, 1)
+    spawnSquare()
 }

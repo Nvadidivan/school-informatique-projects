@@ -19,6 +19,10 @@ canvas {
     bottom: 0;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .pong {
     font-weight: 900;
     display: flex;
@@ -40,24 +44,54 @@ canvas {
     left: 92%;
     right: 2%;
     width: 6%;
-    top: 47%;
-    bottom: 47%;
-    height: 6%;
+    top: 40%;
+    bottom: 40%;
+    height: 20%;
     text-align: center;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .scoreWord {
-    font-size: 26px;
-    height: 45%;
+    font-size: 24px;
+    height: 25%;
     margin-bottom: 10%;
 }
 
 .scoreNumber {
-    font-size: 24px;
-    height: 45%;
+    font-size: 72px;
+    height: 75%;
     margin-top: 10%;
+}
+
+.square {
+    margin: 0;
+    position: fixed;
+    left: 2%;
+    right: 92%;
+    width: 6%;
+    height: 40%;
+    top: 30%;
+    bottom: 30%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.changeSquareNumber {
+    margin: 0;
+    text-align: center;
+    font-size: 48px;
+}
+
+.squareNumber {
+    margin: 0;
+    padding: 0;
+    height: 63px;
+    width: 36px;
+    font-size: 72px;
 }

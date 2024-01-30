@@ -9,6 +9,7 @@ let grid = []
 let thePaddle;
 let game;
 let points = 0
+let active = false
 
 
 function init(){
