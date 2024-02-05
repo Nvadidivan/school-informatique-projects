@@ -5,12 +5,46 @@ function detectCollisions(){
     let obj1;
     let obj2;
 
-    if (game != "zen" && game != "home") {
+    if (game == "exam" || game == "base") {
         if (wallCollision(thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height) == 0 && thePaddle.vfx <= 0) {
             thePaddle.x = 2
         } else if (wallCollision(thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height) == 1 && thePaddle.vfx >= 0) {
             thePaddle.x = canvas.width - thePaddle.width - 2
         }
+    }
+
+
+    if (gameOver) {
+        if (wallCollision(big.x, big.y, big.width, big.height) == 0) {
+            big.x = 3
+            big.vx *= -1
+        } else if (wallCollision(big.x, big.y, big.width, big.height) == 1) {
+            big.x = canvas.width - big.width - 3
+            big.vx *= -1
+        } else if (wallCollision(big.x, big.y, big.width, big.height) == 2) {
+            big.y = 3
+            big.vy *= -1
+        }
+        
+
+
+            if (rectIntersect(big.x, big.y, big.width, big.height, thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height)) {
+                let vCollision = {x: thePaddle.cx - big.cx, y: thePaddle.cy - big.cy};
+                let angle = Math.atan(Math.abs(vCollision.y / vCollision.x)) * 180 / Math.PI
+                let vRelativeVelocity = {x: big.vx - thePaddle.vfx, y: big.vy};
+                let velocity = Math.sqrt((vRelativeVelocity.x)**2 + (vRelativeVelocity.y)**2);
+                let relVel = {x: vRelativeVelocity.x / velocity, y: vRelativeVelocity.y / velocity}
+                let speed = vRelativeVelocity.x * relVel.x + vRelativeVelocity.y * relVel.y;
+                if (angle > thePaddle.angle) {
+                    big.vy *= -1
+                } else if (angle < thePaddle.angle) {
+                    big.vx -= (2 * speed * relVel.x)
+                    big.vy *= 1           
+                } else {
+                    big.vx *= -1
+                    big.vy *= -1
+                }
+            }
     }
 
     // Start checking for collisions
@@ -33,14 +67,13 @@ function detectCollisions(){
             obj1.vy *= -1
         }
 
-        if (game != "zen" && game != "home") {
-            obj2 = thePaddle;
+        if (game == "exam" || game == "base") {
 
-            if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)) {
+            if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, thePaddle.x, thePaddle.y, thePaddle.width, thePaddle.height)) {
                 if (game == "base") {
                     paddlePoint(i)
                 } else if (game == "exam") {
-                    changePoint(1)
+                    changePoint()
                 }
 
                 let giveBonus = -1
@@ -49,21 +82,22 @@ function detectCollisions(){
                     giveBonus = -1.5
                     boost = -1
                 }
-                let vCollision = {x: obj2.cx - obj1.cx, y: obj2.cy - obj1.cy};
+                let vCollision = {x: thePaddle.cx - obj1.cx, y: thePaddle.cy - obj1.cy};
                 let angle = Math.atan(Math.abs(vCollision.y / vCollision.x)) * 180 / Math.PI
-                let vRelativeVelocity = {x: obj1.vx - obj2.vfx, y: obj1.vy};
+                let vRelativeVelocity = {x: obj1.vx - thePaddle.vfx, y: obj1.vy};
                 let velocity = Math.sqrt((vRelativeVelocity.x)**2 + (vRelativeVelocity.y)**2);
                 let relVel = {x: vRelativeVelocity.x / velocity, y: vRelativeVelocity.y / velocity}
                 let speed = vRelativeVelocity.x * relVel.x + vRelativeVelocity.y * relVel.y;
-                if (angle > obj2.angle) {
+                if (angle > thePaddle.angle) {
                     obj1.vy *= giveBonus
-                } else if (angle < obj2.angle) {
+                } else if (angle < thePaddle.angle) {
                     obj1.vx -= (2 * speed * relVel.x)
                     obj1.vy *= boost            
                 } else {
                     obj1.vx *= giveBonus
                     obj1.vy *= giveBonus
                 }
+                obj1.update(secondsPassed)
             }
         }
 

@@ -66,6 +66,34 @@ canvas {
     margin-top: 10%;
 }
 
+.wave {
+    position: fixed;
+    left: 2%;
+    right: 92%;
+    width: 6%;
+    top: 40%;
+    bottom: 40%;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.waveWord {
+    font-size: 24px;
+    height: 25%;
+    margin-bottom: 10%;
+}
+
+.waveNumber {
+    font-size: 72px;
+    height: 75%;
+    margin-top: 10%;
+}
+
+
 .square {
     margin: 0;
     position: fixed;

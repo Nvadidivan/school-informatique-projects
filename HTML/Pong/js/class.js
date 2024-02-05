@@ -15,7 +15,7 @@ class GameObject
 
 class Square extends GameObject
 {
-    constructor (context, x, y, vx, vy, size){
+    constructor (context, x, y, vx, vy, size, color){
         super(context, x, y, vx, vy);
 
         // Set default width and height
@@ -25,12 +25,17 @@ class Square extends GameObject
         this.cx = (this.width / 2) + this.x
         this.cy = (this.height / 2) + this.y
         this.angle = Math.atan((this.height / 2) / (this.width / 2)) * 180 / Math.PI
+        this.color = color
     }
 
     draw(){
         // Draw a simple square
         this.context.fillStyle = "#ffffff"
         this.context.fillRect(this.x, this.y, this.width, this.height);
+        if (game == "exam" && !gameOver) {
+            this.context.strokeStyle = this.color;
+            context.strokeRect(this.x, this.y, this.width, this.height);
+        } 
     }
 
     update(secondsPassed){

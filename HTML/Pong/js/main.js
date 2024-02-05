@@ -6,21 +6,30 @@ window.onload = init;
 
 function gameLoop(timeStamp)
 {
-    time(timeStamp)
+    if (game != "original") {
+        time(timeStamp)
 
-    if (game == "base") {
-        base()
-    } else if (game == "exam") {
-        exam()
-    } else if (game == "zen") {
-        zen()
+        detectCollisions()
+
+        update()
+
+        redraw()
+        
+        window.requestAnimationFrame(gameLoop);
     }
+}
 
-    detectCollisions()
-
-    update()
-
-    redraw()
-
-    window.requestAnimationFrame(gameLoop);
+function konamiCode(e)  {
+    if (game == "home") {
+        if (e.key == code[current]) {
+            current++
+            if (current == code.length) {
+                console.log("html")
+                initOriginal()
+            }
+        } else {
+            current = 0
+        }
+        console.log(current)
+    }
 }

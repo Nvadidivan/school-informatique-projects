@@ -1,11 +1,13 @@
 "use strict"
 
 function createSquare() {
+    console.log(game)
     for (let i = 0; i < gameObjects.length; i++) {
         let square = gameObjects[i]
         occupied(square.x, square.y, square.width, square.height)
     }
     let options = filterOptions()
+    console.log("E")
     if (options.length > 0) {
         shuffleGrid(options)
         let row = options.pop()
@@ -52,15 +54,31 @@ function createSquare() {
             }
         }
 
-        if (colliding == false) {
-            gameObjects.push(new Square(context, x, y, vx, vy, long))
+        if (!colliding) {
+            let color;
+            if (game == "exam") {
+                let letters = '0123456789ABCDEF';
+                color = '#';
+                for (let i = 0; i < 6; i++) {
+                    let random = Math.floor(Math.random() * 16)
+                    color += letters[random];
+                    console.log(random)
+                }
+            }
+            console.log(color)
+            gameObjects.push(new Square(context, x, y, vx, vy, long, color))
+            console.log(gameObjects)
             spawnSquare()
+            console.log(gameObjects)
         } else {
             createSquare()
         }
     } else {
         console.log("empty")
-        window.alert("empty");
+        if (!warned) {
+            window.alert("This is your first and last warning. If you continue adding squares, you will create a particle accelerator. Please consider removing some.");
+            warned = true
+        }
         //ClearGrid
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[0].length; j++) {
