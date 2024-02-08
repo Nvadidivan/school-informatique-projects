@@ -30,9 +30,13 @@ function gameLoop(timeStamp)
             frame++
             if (frame > 43) {
                 frame = 0
-            } else if (file == "dancing" && frame > 15) {
+            }
+        } else if (file == "dancing" && updateAllay >= 0.03) {
+            updateAllay = 0
+            frame++
+            if (frame > 15) {
                 frame = 0
-            } 
+            }
         }
 
         for (let i = 0; i < tubes.length; i++) {
