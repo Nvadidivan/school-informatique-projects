@@ -2,6 +2,7 @@
 
 let frame = 0;
 let accel = 1325.95
+let file = "down"
 
 class Allay {
 
@@ -10,15 +11,11 @@ class Allay {
         this.h = canvas.height/7 * 3/5
         this.w = this.h * 82 / 69
         this.y = (canvas.height / 2) - (this.h / 2)
-        this.x = canvas.width - 1500 
+        this.x = 100
     }
 
     update() {
-        if(accel < 0) {
-            this.vy = accel
-        } else {
             this.vy = accel * allayTime
-        }
         
         console.log(accel)
         console.log(this.vy)
@@ -26,8 +23,17 @@ class Allay {
     }
 
     draw() {
+        if (allay.vy  <= 300 && allay.vy >= 0 && file != "dancing") {
+            file = "flying"
+        } else {
+            file = "down"
+        }
         let img = new Image;
-        img.src = "./textures/allay/down/" + frame + ".png"
+        if (file == "dowen") {
+            img.src = "./textures/allay/down/14.png"
+        } else {
+            img.src = "./textures/allay/" + file + "/" + frame + ".png"
+        }
         context.fillStyle = "#ff0000"
         //context.fillRect(this.x, this.y, this.w, this.h)
         context.drawImage(img, 20, 5, 164, 138, this.x, this.y, this.w, this.h);
@@ -37,12 +43,14 @@ class Allay {
 function moveAllay(e) {
     console.log(canvas.height)
     if (e.key == " ") {
-        allayTime = 0
-        accel = -1325.95 * 0.2
+        file  = "dancing"
+        allayTime = -0.3
+        accel = 1325.95
         setTimeout(() => {
             allayTime = 0
             accel = 1325.95
-        }, 100)
+            file  = "flying"
+        }, 150)
         if (!active && !gameOver) {
             window.requestAnimationFrame(gameLoop); 
             for (let i = 0; i < tubes.length; i++) {
