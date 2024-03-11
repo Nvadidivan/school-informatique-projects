@@ -41,6 +41,11 @@ function gameLoop(timeStamp)
 
         for (let i = 0; i < tubes.length; i++) {
             tubes[i].update()
+            console.log(tubes[i].x)
+        }
+
+        if(powerupPresent) {
+            powerup.update()
         }
         allay.update()
 
@@ -54,17 +59,24 @@ function gameLoop(timeStamp)
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        let img = new Image
-        img.src = "https://i.pinimg.com/736x/bf/84/69/bf846900ea9e1ac1ce0524e0d5914f7e.jpg"
-        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAXP97oRzb8R3bxJiL5qbN27L0cqksjtGwjvgIug1lQA&s"
-        img.src = "https://st2.depositphotos.com/21244960/47435/v/450/depositphotos_474352248-stock-illustration-pixel-background-concept-games-background.jpg"
+        //img.src = "https://i.pinimg.com/736x/bf/84/69/bf846900ea9e1ac1ce0524e0d5914f7e.jpg"
+        //img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAXP97oRzb8R3bxJiL5qbN27L0cqksjtGwjvgIug1lQA&s"
+        //img.src = "https://st2.depositphotos.com/21244960/47435/v/450/depositphotos_474352248-stock-illustration-pixel-background-concept-games-background.jpg"
+       
 
-        context.drawImage(img, 0, 0, canvas.width, canvas.height)
 
-        for (let i = 0; i < tubes.length; i++) {
-            tubes[i].draw()
-        }
-        allay.draw()        
-        window.requestAnimationFrame(gameLoop);
     }
+    let img = new Image
+    img.src = "./resources/background.jpg"
+    context.drawImage(img, 0, 0, canvas.width, canvas.height)
+    for (let i = 0; i < tubes.length; i++) {
+        tubes[i].draw()
+    }
+
+    if (powerupPresent) {
+        powerup.draw()
+    }
+
+    allay.draw()        
+    window.requestAnimationFrame(gameLoop);
 }
